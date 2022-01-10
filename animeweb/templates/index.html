@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+{% block content %}
+    <p>Have you watched anime before?</p>
+
+    <form action = "recommend" method ="post">
+        {% csrf_token %}
+        <input type="radio" id="watched-before" name="have-watched" value="Watched before">
+        <label for="watched-before">Yes</label><br>
+        <input type="radio" id="new-viewer" name="have-watched" value="Not watched before">
+        <label for="new-viewer">No</label><br>
+
+
+        <br><p>Do you prefer more modern anime & manga artstyles?</p>
+
+    
+        <input type="radio" id="modern" name="modern-styles" value="Modern">
+        <label for="modern">Modern styles</label><br>
+        <input type="radio" id="retro" name="modern-styles" value="Older">
+        <label for="retro">Older, more retro styles</label><br>
+   
+
+        <br><p>Do you prefer a quick in and out experience or would you rather get invested in a longer series?</p>
+
+  
+        <input type="radio" id="quick" name="length-anime" value="Quicker">
+        <label for="quick">A shorter series is better</label><br>
+        <input type="radio" id="longer" name="length-anime" value="Longer">
+        <label for="longer">A longer series is better</label><br>
+        <input type="radio" id="movie" name="length-anime" value="Movie">
+        <label for="movie">I want a movie!</label><br>
+  
+
+        <br><p>Select the genres that you prefer:</p>
+
+  
+        <input type="checkbox" id="genre1" name="genre1" value="Action">
+        <label for="genre1"> Action</label><br>
+        <input type="checkbox" id="genre2" name="genre2" value="Romance">
+        <label for="genre2"> Romance</label><br>
+        <input type="checkbox" id="genre3" name="genre3" value="Fantasy">
+        <label for="genre3"> Fantasy</label><br>
+      
+        <br><input type="submit" value="Submit Answers">
+    </form>
+
+{% endblock content %}
