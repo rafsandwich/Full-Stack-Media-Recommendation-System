@@ -42,5 +42,19 @@
       
         <br><input type="submit" value="Submit Answers">
     </form>
+    <div class = "mt-3">
+    {% for anime in animes %}
+        <article class="media content-section">
+            <img class ="rounded-circle article-img" src="https://cdn.myanimelist.net/images/anime/8/19473.jpg">
+            <div class="media-body">
+            <div class="article-metadata">
+                <small class="mr-2">{{ anime.production_status }}</small>
+                <small class="text-muted">{{ anime.year }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ anime.title }}</a></h2>
+            </div>
+        </article>
+    {% endfor %}
+    </div>
 
 {% endblock content %}

@@ -4,8 +4,25 @@ from django.http import HttpResponse
 # Create your views here.
 # takes requests, returns response
 
+animeDummy = [
+    {
+        'title':'Hunter x Hunter',
+        'year':'2013',
+        'production_status': 'ongoing',
+    },
+    {
+        'title':'Dragon ball',
+        'year':'1990',
+        'production_status': 'finished',
+    },
+]
+
+
 def index(request):
-    return render(request, 'index.html')
+    context = {
+        'animes': animeDummy 
+    }
+    return render(request, 'index.html', context)
 
 def about(request):
     return render(request, 'about.html', {'title':'About'})

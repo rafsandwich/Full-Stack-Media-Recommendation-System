@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'reviews',
+    'django_cleanup', #deleting old profile pictures
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #where uploaded files are located on system
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -134,3 +138,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'recommend-index'
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL-RESET') #environment variables to protect sensitive info
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL-PASS')

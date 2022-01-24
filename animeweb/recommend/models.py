@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 #class User(models.Model):
@@ -15,3 +16,8 @@ class Review(models.Model):
 
     def __str__(self):
         return self.head #for visiblity in cmd prompt
+
+    def get_absolute_url(self):
+        return reverse('reviews-detail', kwargs={'pk': self.pk})
+
+#class Anime(models.Model):
