@@ -1,0 +1,36 @@
+{% extends "base.html" %} 
+{%block content %}
+    <h1 class="mb-4">Reviews written by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+    {% for review in reviews %}
+        <article class="media content-section">
+            <img class ="rounded-circle article-img" src="{{ review.author.profile.profile_pic.url }}">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-reviews' review.author.username %}">{{ review.author }}</a>
+                <small class="text-muted">{{ review.date_posted|date:"jS F Y, H:i" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'reviews-detail' review.id %}">{{ review.head }}</a></h2>
+            <p class="article-content">{{ review.body }}</p>
+            </div>
+        </article>
+    {% endfor %}
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-3" href="?page=1">First Page</a>
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        
+        {% for current in page_obj.paginator.page_range %}
+            {% if page_obj.number == current %}
+                <a class="btn btn-info mb-3" href="?page={{ current }}">{{ current }}</a>
+            {% elif current > page_obj.number|add:'-3' and current < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-3" href="?page={{ current }}">{{ current }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.paginator.num_pages }}">Last Page</a>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
