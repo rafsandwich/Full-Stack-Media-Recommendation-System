@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField(required=False) #require emails?
+    email = forms.EmailField(required=True) #require emails?
 
     class Meta: #nested namespace for configs
         model = User

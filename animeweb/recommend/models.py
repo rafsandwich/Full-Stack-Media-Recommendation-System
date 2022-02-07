@@ -20,4 +20,11 @@ class Review(models.Model):
     def get_absolute_url(self):
         return reverse('reviews-detail', kwargs={'pk': self.pk})
 
-#class Anime(models.Model):
+class Anime(models.Model):
+    title = models.CharField(max_length=200)
+    type = models.CharField(max_length=5)
+    episodes = models.IntegerField()
+    status = models.CharField(max_length=10)
+    year = models.IntegerField()
+    picture = models.CharField(max_length=200)
+

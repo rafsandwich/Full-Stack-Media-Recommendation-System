@@ -19,7 +19,7 @@
         <label for="retro">Older, more retro styles</label><br>
    
 
-        <br><p>Do you prefer a quick in and out experience or would you rather get invested in a longer series?</p>
+        <br><p>Do you prefer a quick in-and-out experience or would you rather get invested in a longer series?</p>
 
   
         <input type="radio" id="quick" name="length-anime" value="Quicker">
@@ -45,7 +45,7 @@
     <div class = "mt-3">
     {% for anime in animes %}
         <article class="media content-section">
-            <img class ="rounded-circle article-img" src="https://cdn.myanimelist.net/images/anime/8/19473.jpg">
+            <img class ="rounded-circle article-img" src="{{ anime.picture }}">
             <div class="media-body">
             <div class="article-metadata">
                 <small class="mr-2">{{ anime.production_status }}</small>

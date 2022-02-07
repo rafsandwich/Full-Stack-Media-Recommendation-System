@@ -7,13 +7,17 @@ from django.http import HttpResponse
 animeDummy = [
     {
         'title':'Hunter x Hunter',
+        'type':'TV',
+        'episodes':'62',
         'year':'2013',
         'production_status': 'ongoing',
+        'picture':'https://cdn.myanimelist.net/images/anime/8/19473.jpg',
     },
     {
         'title':'Dragon ball',
         'year':'1990',
         'production_status': 'finished',
+        'picture':'https://cdn.myanimelist.net/images/anime/1887/92364.jpg',
     },
 ]
 
