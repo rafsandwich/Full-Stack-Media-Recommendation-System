@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Recommendation Results</h1>
     {% for anime in animes %}
-        <article class="media content-section">
+        <!-- <article class="media content-section">
             <img class ="rounded-circle article-img" src="{{ anime.picture }}">
             <div class="media-body">
             <div class="article-metadata">
@@ -10,11 +10,21 @@
                 <small class="text-muted">{{ anime.year }}</small>
             </div>
             <h2><a class="article-title" href="#">{{ anime.title }}</a></h2>
-            <!--<p class="article-content">{{ review.body }}</p> -->
+            <p class="article-content">{{ review.body }}</p> 
             </div>
-        </article>
+        </article> -->
+
+        <div class="container">
+            <img src="{{ anime.picture }}" alt="Anime Thumbnail" class="image">
+            <div class="overlay">
+              <div class="text">{{ anime.title }}</div>
+            </div>
+          </div>
+          <br>
     {% endfor %}
     </div>
+    <br>
+    <div>
     {% if is_paginated %}
         {% if page_obj.has_previous %}
             <a class="btn btn-outline-info mb-3" href="?page=1">First Page</a>
@@ -34,4 +44,5 @@
             <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.paginator.num_pages }}">Last Page</a>
         {% endif %}
     {% endif %}
+    </div>
 {% endblock content %}

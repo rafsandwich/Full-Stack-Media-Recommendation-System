@@ -1,0 +1,68 @@
+{% extends "base.html" %} 
+{% block content %}
+    <h1>All Anime</h1>
+    <div class="container p-4">
+        <div class="row">
+          {% for anime in animes %}
+          <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
+            <div class="card h-100 p-4">
+              <img src="{{ anime.picture }}" class="card-img-top" alt="{{ anime.title}} Picture" style="width: auto; height: 350px; object-fit:fill;" class="image">
+              <div class="overlay">
+                <div class="text">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name ="listAdd" value="{{ anime.id }}">Add to List?</button>
+                    </form>
+                </div>
+              </div>
+              <br>
+              <h4>{{anime.title}}</h4>
+              {% if anime.episodes == 1 %}
+                <p class="text-muted">{{anime.year}} | {{anime.status}} | {{anime.type}}</p>
+              {% elif anime.episodes > 1 %}
+                <p class="text-muted">{{anime.year}} | {{anime.status}} | {{anime.type}} | {{anime.episodes}} episodes</p>
+              {% endif %}
+              <p><b>Theme(s): </b>
+              {% if anime.tags.all.count == 1 %}
+                {{ anime.tags.all.first }}
+              {% elif anime.tags.all.count > 1 %}
+                {% for t in anime.tags.all %}
+                    {% if t == anime.tags.all.last %}
+                        {{ t }}
+                    {% else %}
+                        {{ t }},
+                    {% endif %}
+                {% endfor %}
+              {% endif%}
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+          <br>
+        </div>
+    </div>
+    <br>
+    <div>
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-3" href="?page=1">First Page</a>
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        
+        {% for current in page_obj.paginator.page_range %}
+            {% if page_obj.number == current %}
+                <a class="btn btn-info mb-3" href="?page={{ current }}">{{ current }}</a>
+            {% elif current > page_obj.number|add:'-3' and current < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-3" href="?page={{ current }}">{{ current }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-3" href="?page={{ page_obj.paginator.num_pages }}">Last Page</a>
+        {% endif %}
+    {% endif %}
+    </div>
+
+{% endblock content %}

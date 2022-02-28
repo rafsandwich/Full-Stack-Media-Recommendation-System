@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from django.template import loader
+from django.views.generic import ListView, DetailView
+from .models import Anime, Tag
+from users.models import UserList
 
 # Create your views here.
 # takes requests, returns response
@@ -23,10 +27,57 @@ animeDummy = [
 
 
 def index(request):
-    context = {
-        'animes': animeDummy 
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
+
+class AnimeListView(ListView):
+    model = Anime
+    template_name = 'all-anime.html' #<model> name _ <viewtype>
+    context_object_name = 'animes'
+    #ordering = ['-year'] #ordering most recent anime first?
+    paginate_by = 9
+
+    def all_anime(request):
+        if request.method == 'POST':
+            addToList = request.POST.get('listAdd')
+            if addToList:
+                new_anime = get_object_or_404(Anime, pk=addToList)
+                user_list, created = UserList.objects.get_or_create(user=request.user)
+                user_list.anime_in_list.add(new_anime)
+            
+        else:
+            template = loader.get_template('all-anime.html')
+            context = {
+                'animes': Anime.objects.all() 
+            }
+            return HttpResponse(template.render(context, request))
+
+class AnimeDetailView(DetailView):
+    model = Anime
+    template_name = 'anime_details.html'
+
+# def add_to_userlist(request, anime_id):
+#     new_anime = get_object_or_404(Anime, pk=anime_id)
+#     #if UserList.objects.filter(user=request.user, anime_in_list=anime_id).exists():
+#         #message fail
+#     user_list, created = UserList.objects.get_or_create(user=request.user)
+#     user_list.anime_in_list.add(new_anime)
+#     return render(request, "userlist.html")
+
+def all_anime(request):
+    if request.method == 'POST':
+        addToList = request.POST.get('listAdd')
+        if addToList:
+            new_anime = get_object_or_404(Anime, pk=addToList)
+            user_list, created = UserList.objects.get_or_create(user=request.user)
+            user_list.anime_in_list.add(new_anime)
+        
+    else:
+        template = loader.get_template('all-anime.html')
+        context = {
+            'animes': Anime.objects.all() 
+        }
+        return HttpResponse(template.render(context, request))
+        #return render(request, 'all-anime.html', context)
 
 def about(request):
     return render(request, 'about.html', {'title':'About'})
