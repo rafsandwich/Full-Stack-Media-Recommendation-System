@@ -1,4 +1,33 @@
 {% extends "base.html" %} 
 {% block content %}
     <h1>{{ user.username }}'s saved anime list</h1>
+    {% for a in user.userlist.anime_in_list.all %}
+        {{ a.title }}
+        <p>{{ a.year }}</p>
+    {% endfor %}
+
+		<table id="userlists">
+			<tr>
+				<th>ID</th>
+				<th>Anime</th>
+				<th>Year</th>
+				<th>Type</th>
+				<th>Episodes</th>
+				<th>Status</th>
+			</tr>
+			{% for a in user.userlist.anime_in_list.all %}
+				<tr>
+					<td>{{forloop.counter}}
+						<br>
+						<button class="small submit">Delete Entry</button>
+					</td>
+					<td>{{ a.title }}</td>
+					<td>{{ a.year }}</td>
+					<td>{{ a.type }}</td>
+					<td>{{ a.episodes }}</td>
+					<td>{{ a.status }}</td>
+				</tr>
+			{% endfor %} 
+		</table>
+    
 {% endblock content %}
