@@ -20,11 +20,23 @@ class Review(models.Model):
     def get_absolute_url(self):
         return reverse('reviews-detail', kwargs={'pk': self.pk})
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.tag
+
 class Anime(models.Model):
     title = models.CharField(max_length=200)
-    type = models.CharField(max_length=5)
+    type = models.CharField(max_length=7)
     episodes = models.IntegerField()
     status = models.CharField(max_length=10)
     year = models.IntegerField()
     picture = models.CharField(max_length=200)
+    tags = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.title
+
+#Anime(title=anime['title'], type=anime['type'], episodes=anime['episodes'],
+#  status=anime['status'], year=anime['year'], picture=anime['picture'], tags=anime['tags'])

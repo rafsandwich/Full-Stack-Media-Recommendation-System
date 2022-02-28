@@ -1,0 +1,18 @@
+#the tweaked version of the cmd prompt code run in the shell with the pipenv in the website directory, which can load new anime as it is released into the DB, given it is in the same json structure as the current sets.
+
+import json
+from recommend.models import Anime, Tag
+with open(FILENAME), encoding='cp437') as f: #encoding due to some of the foreign characters often present in anime titles / tags
+	anime_json = json.load(f)
+
+for anime in anime_json:
+	new_anime = Anime(title=anime['title'], type=anime['type'], episodes=anime['episodes'],
+	 status=anime['status'], year=anime['animeSeason']['year'], picture=anime['picture'])
+	new_anime.save()
+	for tag in anime['tags']:
+		tag_obj, created = Tag.objects.get_or_create(
+			tag=tag,
+		)
+		new_anime.tags.add(tag_obj)
+
+exit()
