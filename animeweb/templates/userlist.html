@@ -1,14 +1,10 @@
 {% extends "base.html" %} 
 {% block content %}
     <h1>{{ user.username }}'s saved anime list</h1>
-    {% for a in user.userlist.anime_in_list.all %}
-        {{ a.title }}
-        <p>{{ a.year }}</p>
-    {% endfor %}
-
+		<br>
 		<table id="userlists">
 			<tr>
-				<th>ID</th>
+				<th>#</th>
 				<th>Anime</th>
 				<th>Year</th>
 				<th>Type</th>
@@ -17,9 +13,11 @@
 			</tr>
 			{% for a in user.userlist.anime_in_list.all %}
 				<tr>
-					<td>{{forloop.counter}}
-						<br>
-						<button class="small submit">Delete Entry</button>
+					<td>
+						<form action ="/remove_from_list/" method="POST">
+							{% csrf_token %}
+							{{forloop.counter}}: <button type="submit" class="button3" name ="removeAnime" value="{{ a.id }}"><span>Remove from list</span></button>
+						</form>
 					</td>
 					<td>{{ a.title }}</td>
 					<td>{{ a.year }}</td>

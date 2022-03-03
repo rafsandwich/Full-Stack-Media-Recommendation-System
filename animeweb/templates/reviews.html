@@ -1,9 +1,9 @@
 {% extends "base.html" %} 
 {%block content %}
-    <h1>Reviews page</h1>
+    <h1>All Anime Reviews</h1>
     {% for review in reviews %}
         <article class="media content-section">
-            <img class ="rounded-circle article-img" src="{{ review.author.profile.profile_pic.url }}">
+            <img class ="rounded-circle article-img" src="{{ review.author.profile.profile_pic.url }}" alt="Profile Picture">
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'user-reviews' review.author.username %}">{{ review.author }}</a>

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
+from recommend import views as rec_views
 from users import views as user_views
 
 urlpatterns = [
@@ -31,6 +32,7 @@ urlpatterns = [
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"), name='password_reset_complete'),
     path('userlist/', user_views.userList, name='userlist'),
     path('reviews/', include('reviews.urls')),
-    path('profile/', user_views.profile, name='profile')
-
+    path('profile/', user_views.profile, name='profile'),
+    path("remove_from_list/", user_views.removeFromUserList),
+    #path("anime_search/", rec_views.AnimeListView.as_view()),
 ]

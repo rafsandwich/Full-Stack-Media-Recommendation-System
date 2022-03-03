@@ -10,7 +10,7 @@ from django.urls import reverse
 
 class Review(models.Model):
     head = models.CharField(max_length=80)
-    body = models.TextField(max_length=1000)
+    body = models.TextField(max_length=2000)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE) #if user is deleted, choose what happens to reviews
 

@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.template import loader
 
 from recommend.models import Anime
 from users.models import UserList
@@ -27,13 +29,26 @@ def register(request):
 def userList(request):
     return render(request, 'userlist.html')
 
-def add_to_userlist(request, anime_id):
-    new_anime = get_object_or_404(Anime, pk=anime_id)
-    #if UserList.objects.filter(user=request.user, anime_in_list=anime_id).exists():
-        #message fail
-    user_list, created = UserList.objects.get_or_create(user=request.user)
-    user_list.anime_in_list.add(new_anime)
-    return render(request, "userlist.html")
+@login_required
+def removeFromUserList(request):
+    if request.method == 'POST':
+        removeAnime = request.POST.get('removeAnime')
+        if removeAnime:
+            del_anime = get_object_or_404(Anime, pk=removeAnime)
+            user_list, created = UserList.objects.get_or_create(user=request.user)
+            user_list.anime_in_list.remove(del_anime)
+            template = loader.get_template('userlist.html')
+            context = {
+                'animes': Anime.objects.all() 
+            }
+            return HttpResponse(template.render(context, request))
+        
+    else:
+        template = loader.get_template('userlist.html')
+        context = {
+                'animes': Anime.objects.all() 
+            }
+        return HttpResponse(template.render(context, request))
 
 class DeleteView(DeleteView):
     model = UserList

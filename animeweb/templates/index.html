@@ -1,46 +1,65 @@
 {% extends "base.html" %} 
 {% block content %}
-    <p>Have you watched anime before?</p>
+    <h1>Let's find out a bit about you.</h1>
 
-    <form action = "recommend" method ="post">
+    <form action = "/results/" method ="POST">
         {% csrf_token %}
-        <input type="radio" id="watched-before" name="have-watched" value="Watched before">
+        <!-- <input type="radio" id="watched-before" name="have-watched" value="Watched before">
         <label for="watched-before">Yes</label><br>
         <input type="radio" id="new-viewer" name="have-watched" value="Not watched before">
-        <label for="new-viewer">No</label><br>
+        <label for="new-viewer">No</label><br> -->
 
 
         <br><p>Do you prefer more modern anime & manga artstyles?</p>
 
     
-        <input type="radio" id="modern" name="modern-styles" value="Modern">
+        <input type="radio" id="modern" name="artstyles" value="2013" checked="checked">
         <label for="modern">Modern styles</label><br>
-        <input type="radio" id="retro" name="modern-styles" value="Older">
+        <input type="radio" id="retro" name="artstyles" value="2011">
         <label for="retro">Older, more retro styles</label><br>
    
 
         <br><p>Do you prefer a quick in-and-out experience or would you rather get invested in a longer series?</p>
 
   
-        <input type="radio" id="quick" name="length-anime" value="Quicker">
+        <input type="radio" id="quick" name="length-anime" value="11" checked="checked">
         <label for="quick">A shorter series is better</label><br>
-        <input type="radio" id="longer" name="length-anime" value="Longer">
+        <input type="radio" id="longer" name="length-anime" value="13">
         <label for="longer">A longer series is better</label><br>
-        <input type="radio" id="movie" name="length-anime" value="Movie">
-        <label for="movie">I want a movie!</label><br>
+        <input type="radio" id="movie" name="length-anime" value="1">
+        <label for="movie">I would prefer a one off (special or movie)</label><br>
+
+        <br><p>Would you rather the anime be already completed, prior to viewing?</p>
+
+    
+        <input type="radio" id="completedA" name="prod-status" value="FINISHED" checked="checked">
+        <label for="completedA">I want it to be a completed anime</label><br>
+        <input type="radio" id="ongoingA" name="prod-status" value="ONGOING">
+        <label for="ongoingA">I don't mind if it's being continually released as I watch</label><br>
   
 
-        <br><p>Select the genres that you prefer:</p>
+        <br><p>Select any and all genres that appeal to you:</p>
 
   
-        <input type="checkbox" id="genre1" name="genre1" value="Action">
+        <input type="checkbox" id="genre1" name="genres" value="action">
         <label for="genre1"> Action</label><br>
-        <input type="checkbox" id="genre2" name="genre2" value="Romance">
+        <input type="checkbox" id="genre2" name="genres" value="romance">
         <label for="genre2"> Romance</label><br>
-        <input type="checkbox" id="genre3" name="genre3" value="Fantasy">
+        <input type="checkbox" id="genre3" name="genres" value="fantasy">
         <label for="genre3"> Fantasy</label><br>
+        <input type="checkbox" id="genre4" name="genres" value="isekai">
+        <label for="genre4"> Isekai</label><br>
+        <input type="checkbox" id="genre5" name="genres" value="shounen">
+        <label for="genre5"> Shounen</label><br>
+        <input type="checkbox" id="genre6" name="genres" value="comedy">
+        <label for="genre6"> Comedy</label><br>
+        <input type="checkbox" id="genre7" name="genres" value="superpower">
+        <label for="genre7"> Superpowers</label><br>
+        <input type="checkbox" id="genre8" name="genres" value="drama">
+        <label for="genre8"> Drama</label><br>
+        <input type="checkbox" id="genre9" name="genres" value="horror">
+        <label for="genre9"> Horror</label><br>
       
         <br><input type="submit" value="Submit Answers">
     </form>
-
 {% endblock content %}

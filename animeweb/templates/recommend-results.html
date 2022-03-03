@@ -1,29 +1,61 @@
 {% extends "base.html" %} 
 {% block content %}
-    <h1>Recommendation Results</h1>
-    {% for anime in animes %}
-        <!-- <article class="media content-section">
-            <img class ="rounded-circle article-img" src="{{ anime.picture }}">
-            <div class="media-body">
-            <div class="article-metadata">
-                <small class="mr-2">{{ anime.production_status }}</small>
-                <small class="text-muted">{{ anime.year }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ anime.title }}</a></h2>
-            <p class="article-content">{{ review.body }}</p> 
-            </div>
-        </article> -->
-
-        <div class="container">
-            <img src="{{ anime.picture }}" alt="Anime Thumbnail" class="image">
-            <div class="overlay">
-              <div class="text">{{ anime.title }}</div>
-            </div>
-          </div>
-          <br>
-    {% endfor %}
-    </div>
+    <h1>We think you'll like...</h1>
     <br>
+    <!-- <p>Preferred style: {{artstyles}}</p>
+    <p>Preferred length: {{length_anime}}</p>
+    {% if genres %}
+        <p>Preferred Genres: </p>
+        {% for genre in genres %}
+        {{forloop.counter}} : {{genre}}, 
+        {% endfor %}
+    {% endif %} -->
+    {% if animes %}
+        <div class="container p-4">
+            <div class="row">
+            {% for anime in animes %}
+            <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
+                <div class="card h-100 p-4">
+                <img src="{{ anime.picture }}" class="card-img-top" alt="{{ anime.title}} Picture" style="width: auto; height: 350px; object-fit:fill;">
+                <div class="overlay"> 
+                    <div class="text">
+                        <form action ="/add_to_list/" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="button-s" name ="listAdd" value="{{ anime.id }}"><span>Add to List?</span></button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <h4>{{anime.title}}</h4>
+                {% if anime.episodes == 1 %}
+                    <p class="text-muted">{{anime.year}} | {{anime.status}} | {{anime.type}}</p>
+                {% elif anime.episodes > 1 %}
+                    <p class="text-muted">{{anime.year}} | {{anime.status}} | {{anime.type}} | {{anime.episodes}} episodes</p>
+                {% endif %}
+                <p><b>Theme(s): </b>
+                {% if anime.tags.all.count == 1 %}
+                    {{ anime.tags.all.first }}
+                {% elif anime.tags.all.count > 1 %}
+                    {% for t in anime.tags.all %}
+                        {% if t == anime.tags.all.last %}
+                            {{ t }}
+                        {% else %}
+                            {{ t }},
+                        {% endif %}
+                    {% endfor %}
+                {% endif%}
+                </p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            <br>
+            </div>
+        </div>
+    {% else %}
+        <p>Oh no! We couldn't find anything we thought you'd enjoy. We suggest refining your taste criteria.</p>
+        <p>Otherwise, try again another time when our anime table has been expanded!</p>
+    {%endif%}
     <div>
     {% if is_paginated %}
         {% if page_obj.has_previous %}

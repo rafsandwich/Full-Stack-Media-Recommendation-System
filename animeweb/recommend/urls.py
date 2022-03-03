@@ -9,10 +9,10 @@ urlpatterns = [
     path('', views.index, name='recommend-index'),
     path('about/', views.about, name='recommend-about'),
     #path('results/', views.results, name='recommend-results'),
-    path('results/', AnimeListView.as_view(), name='recommend-results'),
+    path('results/', views.recResults, name='recommend-results'),
     path('anime/', AnimeListView.as_view(), name='all-anime'),
+    path('add_to_list/', views.all_anime, name='add-to-list'),
     path('anime/<int:pk>/', AnimeDetailView.as_view(), name='anime-detail'),
-    
 
 ]
 
