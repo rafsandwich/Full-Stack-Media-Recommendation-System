@@ -218,8 +218,7 @@ def all_anime(request):
             messages.success(request, f'Anime successfully added to your List!')
             template = loader.get_template('all-anime.html')
             context = {
-                'animes': Anime.objects.all(),
-                'messages':messages
+                'animes': Anime.objects.all()
             }
             return HttpResponse(template.render(context, request))
         
