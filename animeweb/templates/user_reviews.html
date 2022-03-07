@@ -7,6 +7,9 @@
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'user-reviews' review.author.username %}">{{ review.author }}</a>
+                {% if review.associated_anime %} 
+                    <small>| <a href = "{% url 'anime-reviews' review.associated_anime.title %}">{{ review.associated_anime.title }}</a> |</small>
+                {% endif %}
                 <small class="text-muted">{{ review.date_posted|date:"jS F Y, H:i" }}</small>
             </div>
             <h2><a class="article-title" href="{% url 'reviews-detail' review.id %}">{{ review.head }}</a></h2>

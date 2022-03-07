@@ -5,6 +5,9 @@
         <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="{% url 'user-reviews' object.author.username %}">{{ object.author }}</a>
+            {% if object.associated_anime %} 
+                    <small>| <a href = "#">{{ object.associated_anime.title }}</a> |</small>
+            {% endif %}
             <small class="text-muted">{{ object.date_posted|date:"jS F Y, H:i" }}</small>
             {% if object.author == user %}
                 <div>

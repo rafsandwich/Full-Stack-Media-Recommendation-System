@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ReviewListView, ReviewDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, UserReviewListView
+from .views import AnimeReviewListView, ReviewListView, ReviewDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, UserReviewListView
 
 urlpatterns = [
     path('', ReviewListView.as_view(), name='reviews-index'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:pk>/update/', ReviewUpdateView.as_view(), name='reviews-update'),
     path('<int:pk>/delete/', ReviewDeleteView.as_view(), name='reviews-delete'),
     path('user/<str:username>/', UserReviewListView.as_view(), name='user-reviews'),
+    path('anime/<str:title>/', AnimeReviewListView.as_view(), name='anime-reviews'),
 ]

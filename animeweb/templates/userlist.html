@@ -19,7 +19,7 @@
 							{{forloop.counter}}: <button type="submit" class="button3" name ="removeAnime" value="{{ a.id }}"><span>Remove from list</span></button>
 						</form>
 					</td>
-					<td>{{ a.title }}</td>
+					<td><img class ="rounded-circle article-img" src= "{{a.picture}}" alt="Anime Thumbnail"> {{ a.title }}</td>
 					<td>{{ a.year }}</td>
 					<td>{{ a.type }}</td>
 					<td>{{ a.episodes }}</td>

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin #(loginrequiredmixin) redirect new review attempts not logged in to login page
 from django.contrib.auth.models import User
-from recommend.models import Review
+from recommend.models import Anime, Review
 
 #legacy dummy data
 testreviews = [
@@ -44,13 +44,23 @@ class UserReviewListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username')) #kwargs query paramaters, gets username from url
         return Review.objects.filter(author=user).order_by('-date_posted')
 
+class AnimeReviewListView(ListView):
+    model = Review
+    template_name = 'anime_reviews.html' 
+    context_object_name = 'reviews'
+    paginate_by = 6
+
+    def get_queryset(self):
+        anime = get_object_or_404(Anime, title=self.kwargs.get('title')) #kwargs query paramaters, gets username from url
+        return Review.objects.filter(associated_anime=anime).order_by('-date_posted')
+
 class ReviewDetailView(DetailView):
     model = Review
     template_name = 'review_detail.html'
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
-    fields = ['head', 'body']
+    fields = ['head', 'body', 'associated_anime']
     template_name = 'review_form.html'
     #success_url = home page eg if wanted redirect somewhere else
 
