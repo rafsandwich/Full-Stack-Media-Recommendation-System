@@ -1,4 +1,6 @@
 # Anime-Recommendation-System
-An online recommendation system for anime enthusiasts and newcomers
 
-A full-stack website developed as part of the BSc Computing Project.
+A full-stack website built from scratch in Django-Python that provides an online recommendation system for users
+Users can make accounts, customise their profiles, write reviews, connect with other users and save service-recommended media to their own account, amongst other features.
+
+
